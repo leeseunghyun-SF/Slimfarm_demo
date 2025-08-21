@@ -1,0 +1,415 @@
+/* ==========================================================================
+   SlimFarm Stylesheet (cleaned)
+   Sections: Root Vars → Dark Scheme → Reset/Base → Nav → Hero → Sections
+             Downloads → Footer → Accessibility → Typography → Section Overrides
+   ========================================================================== */
+
+/* ========== Root Vars ========== */
+:root {
+  --hero: url('../img/SFBGG16.jpg'); /* 히어로 배경 이미지 */
+  --text: #0a0a0a;
+  --muted: #ffffff;                  /* 현재 디자인 의도 유지 (히어로 텍스트용 화이트) */
+  --bg: #ffffff;
+  --nav-bg: rgba(255, 255, 255, 0.6);
+  --border: rgba(0, 0, 0, 0.06);
+}
+
+
+/* ========== Dark Scheme ========== */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --text: #f5f5f7;
+    --muted: #9aa0a6;
+    --bg: #0a0a0a;
+    --nav-bg: rgba(10, 10, 10, 0.6);
+    --border: rgba(255, 255, 255, 0.08);
+  }
+}
+
+/* ========== Reset / Base ========== */
+* { box-sizing: border-box; }
+html, body { height: 100%; margin: 0; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue", Arial, sans-serif;
+  color: var(--text);
+  background: var(--bg);
+}
+
+/* 전역 스크롤 마진 (고정 네비 보정) */
+section, header, footer { scroll-margin-top: 80px; }
+
+/* ========== Nav ========== */
+.nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 50;
+  height: 64px;
+  border-bottom: 1px solid transparent;
+  transition: background 300ms ease, border-color 300ms ease, backdrop-filter 300ms ease; /* FIX: 세미콜론 추가 */
+}
+.nav.scrolled {
+  background: var(--nav-bg);
+  -webkit-backdrop-filter: saturate(180%) blur(12px);
+  backdrop-filter: saturate(180%) blur(12px);
+  border-bottom-color: var(--border);
+}
+.nav-inner {
+  display: grid; grid-template-columns: 1fr auto 1fr; align-items: center;
+  height: 64px; max-width: 1200px; margin: 0 auto; padding: 0 16px;
+}
+.menu {
+  display: flex; justify-self: center; align-items: center; gap: 22px;
+  list-style: none; margin: 0; padding: 0;
+  font-size: 14px; letter-spacing: 0.02em;
+}
+.menu a {
+  color: var(--text); text-decoration: none;
+  opacity: 0.9; transition: opacity 200ms ease;
+}
+.menu a:hover { opacity: 1; }
+.auth { justify-self: end; display: flex; align-items: center; gap: 10px; }
+.link {
+  color: var(--text); text-decoration: none;
+  font-size: 14px; font-weight: 600; opacity: 0.9;
+}
+.link:hover { opacity: 1; }
+.signup {
+  display: inline-flex; align-items: center; gap: 8px;
+  padding: 8px 14px; border-radius: 999px;
+  border: 1px solid #d1d5db; color: var(--text); text-decoration: none;
+  font-size: 13px; font-weight: 700;
+}
+.signup:hover { border-color: currentColor; }
+@media (max-width: 720px) {
+  .menu { gap: 14px; font-size: 13px; }
+}
+
+/* ========== Hero ========== */
+.hero {
+  position: relative; display: grid; place-items: center;
+  width: 100vw; height: 100vh;
+  background-image: var(--hero);
+  background-size: cover; background-position: center;
+  background-color: #111; /* 이미지 로딩 전 대비색 */
+}
+/* 상/하 그라데이션 오버레이 */
+.hero::after {
+  content: ""; position: absolute; inset: 0; pointer-events: none;
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0.45),
+    rgba(255, 255, 255, 0) 38%,
+    rgba(0, 0, 0, 0.35)
+  );
+}
+@media (prefers-color-scheme: dark) {
+  .hero::after {
+    background: linear-gradient(
+      180deg,
+      rgba(0, 0, 0, 0.5),
+      rgba(0, 0, 0, 0) 38%,
+      rgba(0, 0, 0, 0.6)
+    );
+  }
+}
+
+/* (옵션) 저해상도 프리뷰 - .ready가 붙으면 사라짐 */
+.hero::before {
+  content: ""; position: absolute; inset: 0;
+  background: url('../img/SFBGG16.jpg') center / cover no-repeat;
+  filter: blur(20px); transform: scale(1.05);
+  opacity: 1; transition: opacity .6s ease; /* FIX: 초기값 1 → .ready에서 0으로 사라지게 */
+}
+.hero.ready::before { opacity: 0; }
+
+.hero-inner {
+  position: relative; z-index: 1;
+  max-width: 1100px; padding: 16px; text-align: center;
+}
+.brand-mark {
+  width: clamp(160px, 18vw, 240px); margin: 0 auto 14px;
+  filter: drop-shadow(0 8px 32px rgba(0, 0, 0, 0.18));
+  opacity: 0; transform: translateY(16px);
+}
+.headline {
+  margin: 8px 0 10px; letter-spacing: -0.02em;
+  font-size: clamp(100px, 5vw, 100px);
+  opacity: 0; transform: translateY(16px);
+}
+h2 { margin: 4px 0 16px; }
+.sub {
+  margin-bottom: 22px;
+  font-size: clamp(14px, 2vw, 18px);
+  color: var(--muted);
+  opacity: 0; transform: translateY(16px);
+}
+
+/* CTA */
+.cta {
+  display: inline-flex; align-items: center; gap: 10px;
+  padding: 14px 22px; border-radius: 999px;
+  background: #1f1e1e; color: #fff; border: 1px solid #3a3939;
+  text-decoration: none; font-weight: 600; font-size: 15px;
+  opacity: 0; transform: translateY(12px) scale(0.98);
+  transition: transform 250ms ease;
+}
+.cta:hover { transform: translateY(8px) scale(1.01); }
+@media (prefers-color-scheme: dark) {
+  .cta { background: #fff; color: #0a0a0a; border-color: #fff; }
+}
+
+.service {
+  text-align: center;
+  padding: 100px 20px;
+}
+
+.cta-btn {
+  display: inline-block;
+  margin-top: 20px;
+  padding: 14px 36px;
+  font-size: 18px;
+  font-weight: 600;
+  color: #353434;
+  background: #afd3c4; /* SlimFarm 브랜드 컬러 느낌 */
+  border-radius: 12px;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+.cta-btn:hover {
+  background: #0a6b44;
+  color: #fff;
+  transform: translateY(-2px);
+}
+
+/* ========== Sections (Common) ========== */
+.section {
+  display: grid; place-items: center;
+  min-height: 80vh; padding: 96px 24px;
+  border-top: 1px solid var(--border);
+}
+.section .content { max-width: 1100px; text-align: center; }
+.kicker {
+  margin-bottom: 8px;
+  color: var(--text);
+  font-size: 14px; letter-spacing: 0.12em; text-transform: uppercase;
+}
+.title {
+  margin-bottom: 10px; letter-spacing: -0.01em;
+  font-size: clamp(24px, 4.2vw, 44px);
+}
+.desc {
+  max-width: 860px; margin: 0 auto;
+  font-size: clamp(14px, 2vw, 18px);
+  color: var(--muted);
+}
+
+/* === Section별 배경 이미지(HTML 수정 없음) === */
+:root{
+  --section-bg: none;
+  --section-pos: center center;
+  --section-overlay: linear-gradient(180deg, rgba(0,0,0,0), rgba(0,0,0,0));
+}
+
+/* 배경/오버레이를 얹을 컨테이너 준비 */
+.section{
+  position: relative;
+  isolation: isolate;              /* 섹션 안에서만 z-index 처리 */
+}
+
+/* 배경 + 오버레이 레이어 */
+
+/* === Section 배경 흐림(블러) 공통 === */
+:root{
+  --section-blur: 0px; /* 기본은 0으로 두고 섹션별로만 켬 */
+}
+:root { --section-veil-opacity: 0; }
+
+/* 이미지 + (섹션 오버레이) + (흰 베일) 한 장으로 정렬 오차 제거 */
+.section::before{
+  content:"";
+  position:absolute; inset:0;
+  z-index:-1; pointer-events:none;
+
+  /* 위에서부터 순서대로 그려짐: 흰 베일 → 섹션 오버레이 → 섹션 배경 이미지 */
+  background-image:
+    linear-gradient(0deg,
+      rgba(255,255,255, var(--section-veil-opacity, 0)),
+      rgba(255,255,255, var(--section-veil-opacity, 0))
+    ),
+    var(--section-overlay),
+    var(--section-bg);
+
+  /* 세 레이어 모두 동일한 좌표계 */
+  background-size: cover, cover, cover;
+  background-position: var(--section-pos), var(--section-pos), var(--section-pos);
+  background-repeat: no-repeat, no-repeat, no-repeat;
+
+  /* 정밀 렌더링 */
+  will-change: opacity, transform;
+}
+
+/* 텍스트가 항상 배경 위로 보이도록 */
+.section .content{
+  position: relative;
+  z-index: 1;
+}
+
+/* ========== Downloads ========== */
+.downloads {
+  display: flex; flex-wrap: wrap; justify-content: center; gap: 12px;
+  margin-top: 18px;
+}
+.btn {
+  display: inline-flex; align-items: center; gap: 10px;
+  padding: 12px 18px; border-radius: 999px;
+  border: 1px solid #d1d5db; color: var(--text); text-decoration: none;
+  font-weight: 600;
+}
+.btn:hover { border-color: currentColor; }
+.btn[aria-disabled="true"] { opacity: .5; pointer-events: none; }
+
+/* ========== Footer ========== */
+footer {
+  padding: 40px 24px; text-align: center;
+  color: var(--text); border-top: 1px solid var(--border);
+}
+
+/* ========== Accessibility ========== */
+@media (prefers-reduced-motion: reduce) {
+  * { animation: none !important; transition: none !important; }
+}
+
+/* ========== Typography (Global Colors & Fonts) ========== */
+h1 { color: #ffffff; }     /* 헤드라인 색 (히어로에서 흰색) */
+h2 { color: #fefeff; }     /* 서브 타이틀 */
+p, .desc { color: #021e46; } /* 본문: p + .desc 함께 지정 */
+
+/* 폰트 패밀리/무게 */
+h1 {
+  font-family: ui-sans-serif, -apple-system, "SF Pro Display", "Apple SD Gothic Neo",
+               "Noto Sans KR", Segoe UI, Roboto, Arial, sans-serif;
+  font-weight: 700; letter-spacing: -0.02em;
+}
+h2 {
+  font-family: "Lobster", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+  font-weight: 600; letter-spacing: -0.01em;
+}
+p, .desc {
+  font-family: "Noto Sans KR", -apple-system, "Apple SD Gothic Neo", Segoe UI, Roboto, Arial, sans-serif;
+  font-weight: 700; line-height: 1.7;
+  font-feature-settings: "kern","liga","rlig";
+}
+
+/* ========== Section-specific Color Overrides ========== */
+/* About */
+#about      { --section-veil-opacity: .20; }
+#about{      --section-blur: px; }
+#about h1 { color: #111827; }
+#about h2 { color: #065f46; }
+#about p, #about .desc { color: #374151; }
+
+/* Technology */
+#technology { --section-veil-opacity: .18; }
+#technology{ --section-blur: px; }
+#technology h2 { color: #065f46; }
+#technology p, #technology .desc { color: #111827; }
+
+/* Service */
+#service    { --section-veil-opacity: .22; }
+#service { --section-blur: px; }
+#service h1 { color: #111827; }
+#service h2 { color: #065f46; }
+#service p, #service .desc { color: #374151; }
+
+/* My Farm */
+#myfarm     { --section-veil-opacity: .20; }
+#myfarm{     --section-blur: px; }
+#myfarm h1 { color: #111827; }
+#myfarm h2 { color: #065f46; }
+#myfarm p, #myfarm .desc { color: #374151; }
+
+/* Contact */
+#contact    { --section-veil-opacity: .18; }
+#contact{    --section-blur: px; }
+#contact h1 { color: #111827; }
+#contact h2 { color: #065f46; }
+#contact p, #contact .desc { color: #374151; }
+
+/* Downloads */
+#downloads h1 { color: #111827;  }
+#downloads h2 { color: #065f46; }
+/* #downloads p, #downloads .desc { color: #374151; }  ← 중복/선행값 제거 */
+#downloads p, #downloads .desc { color: #1f2937; } /* 유지할 최종값 */
+
+/* Hero 전용 폰트 */
+#home h2{
+  font-family: "Lobster", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+  font-size: clamp(25px, 3.5vw, 35px);
+  line-height: 1.15;
+}
+#sub{
+  font-family: "Lobster", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
+/* About 섹션 */
+#about{
+  --section-bg: url('../img/D.webp');
+  --section-pos: center 40%; /* 인물/로고가 살짝 위라면 */
+  --section-overlay: linear-gradient(180deg, rgba(0,0,0,.35), rgba(0,0,0,.35));
+}
+#about .kicker, #about .title, #about .desc{ color:#fff; text-shadow:0 1px 2px rgba(0,0,0,.25); }
+
+/* Technology 섹션 */
+#technology{
+  --section-bg: url('../img/PLC1.jpg');
+  --section-pos: center center;
+  --section-overlay: linear-gradient(180deg, rgba(0,0,0,.25), rgba(0,0,0,.55));
+}
+#technology .kicker, #technology .title, #technology .desc{ color:#fff; text-shadow:0 1px 2px rgba(0,0,0,.25); }
+
+/* Service 섹션 */
+#service{
+  --section-bg: url('../img/SFBGG1.jpg');
+  --section-overlay: linear-gradient(180deg, rgba(0,0,0,.20), rgba(0,0,0,.50));
+}
+#service .kicker, #service .title, #service .desc{ color:#fff; text-shadow:0 1px 2px rgba(0,0,0,.25); }
+
+/* My Farm 섹션 */
+#myfarm{
+  --section-bg: url('../img/SFBGG5.jpg');
+  --section-pos: center 35%;
+  --section-overlay: linear-gradient(180deg, rgba(0,0,0,.20), rgba(0,0,0,.45));
+}
+#myfarm .kicker, #myfarm .title, #myfarm .desc{ color:#fff; text-shadow:0 1px 2px rgba(0,0,0,.25); }
+
+/* Contact 섹션 */
+#contact{
+  --section-bg: url('../img/SFBGG12.jpg');
+  --section-overlay: linear-gradient(180deg, rgba(0,0,0,.20), rgba(0,0,0,.50));
+}
+#contact .kicker, #contact .title, #contact .desc{ color:#fff; text-shadow:0 1px 2px rgba(0,0,0,.25); }
+
+/* Downloads 섹션 – 배경 없음 유지 */
+#downloads{
+  --section-bg: linear-gradient(180deg, #ffffff 0%, #daf7ff 100%);
+  --section-overlay: none;
+}
+@media (prefers-color-scheme: dark){
+  #downloads{
+    --section-bg: linear-gradient(0deg, #0b0f14, #0b0f14);
+    --section-overlay: none;
+  }
+  #downloads h1{ color:#e5e7eb; }
+  #downloads h2{ color:#a7f3d0; }
+  #downloads p, #downloads .desc{ color:#cbd5e1; }
+}
+
+/* === Section 화이트 베일 공통 (흰 천 효과) === */
+
