@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Slim Farm Data</title>
+
+  <!-- Hero/로고 사전 로드 -->
+  <link rel="preload" as="image" href="img/SFBGG16.jpg" />
+   <link rel="preload" as="image" href="img/SFBGG7.jpg" />
+    <link rel="preload" as="image" href="img/D.webp" />
+     <link rel="preload" as="image" href="img/PLC1.jpg" />
+  <link rel="preload" as="image" href="img/SFBGG1.jpg" />
+    <link rel="preload" as="image" href="img/SFBGG5.jpg" />
+      <link rel="preload" as="image" href="img/SFBGG15.jpg" />
+
+
+  <!-- 색상/테마 -->
+  <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#0a0a0a" media="(prefers-color-scheme: dark)">
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="css/style.css" />
+ <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Lobster&display=swap" rel="stylesheet">
+
+</head>
+<body>
+  <nav class="nav" id="nav" aria-label="Global">
+    <div class="nav-inner">
+      <div></div>
+      <ul class="menu">
+        <li><a href="#home">Home</a></li>
+        <li><a href="#about">About</a></li>
+        <li><a href="#technology">Technology</a></li>
+        <li><a href="#service">Service</a></li>
+        <li><a href="#myfarm">My Farm</a></li>
+        <li><a href="#contact">Contact</a></li>
+        <li><a href="#downloads">Downloads</a></li>
+      </ul>
+      <div class="auth">
+        <a class="link" href="/login">Login</a>
+        <a class="signup" href="/signup">Sign Up</a>
+      </div>
+    </div>
+  </nav>
+
+  <header id="home" class="hero">
+    <div class="hero-inner">
+      <img src="img/SF7.png" alt="SlimFarm 로고" class="brand-mark" id="brandMark" />
+      <h1 class="headline" id="headline">Slim Farm Data</h1>
+      <h2>Smart Farming Made Easy</h2>
+      <p class="sub" id="sub"></p>
+      <a class="cta" id="cta" href="#downloads" aria-label="Go to client downloads">Get Started</a>
+    </div>
+  </header>
+
+  <section id="about" class="section">
+    <div class="content">
+      <div class="kicker">About</div>
+      <h2 class="title">Simple &amp; Make Easy</h2>
+      <p class="desc">
+        Transforming complex agricultural automation into an intuitive experience.<br>
+        Get started with Slim Farm Data.
+      </p>
+    </div>
+  </section>
+
+  <section id="technology" class="section">
+    <div class="content">
+      <div class="kicker">Technology</div>
+      <h2 class="title">PLC · Arduino · Streaming</h2>
+      <p class="desc">
+        Stable control with Mitsubishi PLC, flexible gateway with Arduino,<br>
+        and low-latency monitoring of sensor and CCTV data.
+      </p>
+    </div>
+  </section>
+
+  <section id="service" class="section">
+    <div class="content">
+      <div class="kicker">Service</div>
+      <h2 class="title">Selling &amp; Monitoring</h2>
+      <p class="desc">
+        Purchase full smart-farm systems and parts.<br>
+        Monitor CCTV and various sensor data in one place.
+      </p>
+    </div>
+     <div class="service">
+    <!-- CTA 버튼 -->
+    <a href="/dashboard" class="cta-btn">Dashboard</a>
+  </div>
+  </section>
+
+  <section id="myfarm" class="section">
+    <div class="content">
+      <div class="kicker">My Farm</div>
+      <h2 class="title">Connect from Anywhere</h2>
+      <p class="desc">
+        Synchronize project progress to the cloud via PC and mobile clients.
+      </p>
+    </div>
+  </section>
+
+  <section id="contact" class="section">
+    <div class="content">
+      <div class="kicker">Contact</div>
+      <h2 class="title">Whatever You Request</h2>
+      <p class="desc">
+        Partnership and demo kit consultations are always welcome.
+      </p>
+    </div>
+  </section>
+
+  <section id="downloads" class="section">
+    <div class="content">
+      <div class="kicker">Get Started</div>
+      <h2 class="title">Client Downloads</h2>
+      <p class="desc">Please select the installer for your operating system.</p>
+      <div class="downloads">
+        <a class="btn" href="/downloads/SlimFarm-Setup.exe" download>Windows</a>
+        <a class="btn" href="/downloads/SlimFarm.dmg" download>macOS</a>
+        <a class="btn" href="#" aria-disabled="true" title="Coming soon" role="link" tabindex="-1">iOS</a>
+        <a class="btn" href="#" aria-disabled="true" title="Coming soon" role="link" tabindex="-1">Android</a>
+      </div>
+    </div>
+  </section>
+
+  <footer>© <span id="y"></span> Slim Farm Data. Sh.Lee. All rights reserved.</footer>
+
+  <!-- GSAP (CDN) -->
+  <script
+    src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"
+    crossorigin="anonymous"
+    referrerpolicy="no-referrer"
+    defer></script>
+  <script
+    src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"
+    crossorigin="anonymous"
+    referrerpolicy="no-referrer"
+    defer></script>
+
+  <!-- App JS -->
+  <script src="js/app.js" defer></script>
+</body>
+</html>
